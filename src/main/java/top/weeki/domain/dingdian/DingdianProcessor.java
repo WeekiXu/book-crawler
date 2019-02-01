@@ -54,7 +54,7 @@ public class DingdianProcessor implements PageProcessor {
         String indexUrl = page.getUrl().toString();
         String pageRegix = indexUrl.replace("index.html", "\\d+.html");
         List<String> list = page.getHtml().links().regex(pageRegix).all();
-        list = list.subList(0, 10);
+//        list = list.subList(0, 10);
         for (int i = 0; i < list.size(); i++) {
             list.set(i, list.get(i) + "?index=" + i);
         }
@@ -69,7 +69,7 @@ public class DingdianProcessor implements PageProcessor {
     public static void main(String[] args) throws InterruptedException, IOException {
         String path = "D:\\tmp\\book\\";
         Spider spider = Spider.create(new DingdianProcessor())
-                .addUrl("https://www.23us.so/files/article/html/0/414/index.html")
+                .addUrl("https://www.23us.so/files/article/html/1/1188/index.html")
                 .addPipeline(new DingdianJsonFilePipeline("D:\\tmp\\book\\"))
                 //开启5个线程抓取
                 .thread(100);
@@ -82,7 +82,7 @@ public class DingdianProcessor implements PageProcessor {
             Thread.sleep(10000);
         }
         // 汇总txt
-        String bookName = "仙界归来";
+        String bookName = "异常生物见闻录";
         Stream<Path> files = Files.list(new File(path + spider.getUUID() + "\\" + bookName).toPath());
 //        Stream<Path> files = Files.list(new File("D:\\tmp\\book\\www.23us.so\\仙界归来").toPath());
 
